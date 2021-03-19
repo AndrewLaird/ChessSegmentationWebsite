@@ -1,0 +1,19 @@
+@import "~/src/styles.scss";
+
+.header-color{
+    width:100%;
+    // Chess.com grey
+    background-color:$chessBlack;
+}
+.header-bar{
+    color:white;
+    height:65px;
+    font-size:2em;
+}
+.header-item{
+    align-self:center;
+    padding:5px
+}
+.header-row{
+    height:100%;
+}

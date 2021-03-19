@@ -1,0 +1,101 @@
+<div class='container'> 
+   <!-- we have to input a user picture
+       or video at certain timestamp
+        call our api
+        and then display the chess board + fen
+        and these options
+        -- buttons toggling persepective and who's turn it is
+        -- edit chessboard at lichess
+        -- analysze board at lichess 
+        -- analysze board at chess.com
+   -->
+   <div class="image-upload">
+       <div>
+        <form action="/api"  method="post" enctype="multipart/form-data">
+            <input #chessboard_input name='chessboard' class="hidden" id="input-file-id" (change)="upload(chessboard_input.files)" type="file" />
+            <label for="input-file-id" class='upload-button'>Upload Chessboard</label>
+            <p class='text-center chosen-file-name'>{{filename}}</p>
+        </form>
+        </div>
+        <div>
+         {{message}}
+        </div>
+   </div>
+   <div class="loading" *ngIf="loading">
+   </div>
+   <!--
+   <div  class= "result-box" *ngIf="doneLoading">
+   -->
+   <div  class= "result-box">
+     <div class='uploaded-image'>
+       Uploaded Image:
+     </div>
+     <div>
+       <img [src]="imageURL" height="200px" *ngIf="imageURL">
+     </div>
+
+     <div class>
+       Detected Chessboard Location:
+     </div>
+     <div class='row'>
+      <div class='cropped-img col-6'>
+       <img height='300px' [src]="imageURL" id="croppedImage">
+      </div>
+      <div class='col-6'>
+       heyo
+      </div>
+    </div>
+     <div>
+      Fen: <b>{{fen}} {{move}} - - 0 1</b>
+     </div>
+     <div class="row justify-content-center pt-5">
+      <div class='col-3'>
+       <div>
+        <label class = "inline" > 
+          Perspective:
+        </label>
+       </div>
+       <div class='dropdown inline'>
+        <select class="perspectiveSelect" [(ngModel)]="perspective" (change)="reverse_fen()">
+         <option value='w'>
+          White
+         </option>
+         <option value='b'>
+           Black
+         </option>
+        </select>
+      </div>
+       <img class='selectImg' [src]="perspective=='w'? 'assets/img/wk.png' : 'assets/img/bk.png'">
+      </div>
+      <div class='col-3'>
+       <div>
+        <label class = "inline"> 
+          Turn:
+        </label>
+       </div>
+       <div class='dropdown inline'>
+        <select class="moveSelect" [(ngModel)]="move">
+         <option value='w'>
+          White
+         </option>
+         <option value='b'>
+           Black
+         </option>
+        </select>
+      </div>
+       <img class='selectImg'[src]="move=='w'? 'assets/img/WhiteKingMove.png' : 'assets/img/BlackKingMove.png'">
+     </div>
+     <div class="row mt-5 justify-content-center">
+      <div class='col-3 '>
+       <a href='https://lichess.org/editor/{{fen}}_{{perspective}}' class='exit-button'>
+        <label>Editor</label>
+       </a>
+      </div>
+      <div class='col-3 '>
+       <a href='https://lichess.org/analysis/{{fen}}_{{perspective}}' class='exit-button'>
+        <label>Analysis</label>
+       </a>
+      </div>
+     </div>
+    </div>
+</div>

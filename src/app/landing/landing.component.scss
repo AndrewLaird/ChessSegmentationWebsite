@@ -1,0 +1,134 @@
+// we are putting our variables in styles.scss
+@import "~/src/styles.scss";
+
+
+.container{
+    text-align:center;
+    max-width:$center-width;
+    width:100%;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    font-size:1.5em;
+    height:100%;
+    background-color:#FDFDF0;
+}
+
+.hidden{
+    display:none;
+}
+
+.chosen-file-name{
+    margin-top:.5em;
+}
+
+.upload-button{
+    margin-top:50px;
+    font-size:2em;
+    color:white;
+    background-color:$primary;
+    border: 1px solid white;
+    border-radius: .3em;
+    padding:1em;
+}
+.upload-button:hover{
+    color:$primary;
+    background-color:white;
+    border: 1px solid $primary;
+}
+
+.loading{
+    background: url('ajax-loader.gif') no-repeat center center;
+    background-size:cover;
+    width:50px;
+    height:50px;
+    margin:auto;
+    margin-top:100px;
+}
+
+.white-on{
+    padding:10px;
+    border: solid 2px black;
+    border-radius: .5em;
+}
+.white-off{
+    padding:10px;
+    border: solid 2px black;
+    border-radius: .5em;
+    background-color:black;
+    color:white;
+}
+
+.black-on{
+    padding:10px;
+    border: solid 2px black;
+    border-radius: .5em;
+    background-color:black;
+    color:white;
+}
+
+.black-off{
+    padding:10px;
+    border: solid 2px black;
+    border-radius: .5em;
+    background-color:black;
+    color:white;
+}
+
+.uploaded-image{
+    margin-top:10px;
+    text-align:center;
+}
+
+
+#croppedImg{
+    margin-left:auto;
+    margin-right:auto;
+}
+.cropped-img{
+    height:300px;
+    text-align:center;
+}
+
+.inline{
+    display:inline;
+}
+
+.perspectiveSelect{
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.moveSelect{
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.selectImg{
+    height:70px;
+    padding-left:5px;
+}
+
+
+// call to action buttons to leave the page
+.exit-button{
+    background-color:$chessGrey;
+    padding:10px;
+    border-radius:.5em;
+    color:white;
+}
+.exit-button:hover{
+    background-color:white;
+    color:$chessGrey;
+    border: solid 1px $chessGrey;
+}
+.fen{
+
+}
+
+.lichess{
+
+}
+
+.chesscom{
+    
+}
