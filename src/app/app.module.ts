@@ -8,12 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
+import { ChessBoardComponent } from './chess-board/chess-board.component';
+import { TfstuffComponent } from './tfstuff/tfstuff.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChessBoardComponent,
+    TfstuffComponent
   ],
   imports: [
     BrowserModule,
