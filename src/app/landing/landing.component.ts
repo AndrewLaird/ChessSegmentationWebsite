@@ -17,6 +17,9 @@ export class LandingComponent implements OnInit {
   public move: string;
   public crop_data: string;
   public filename: string;
+  public file: File;
+  public example_selected: string;
+  public failed: boolean;
   imageURL: any;
 
   constructor(private http: HttpClient) {
@@ -29,6 +32,9 @@ export class LandingComponent implements OnInit {
     this.move= 'w';
     this.crop_data = "";
     this.filename = "No file chosen";
+    this.example_selected = "-1";
+    this.file = new File(['not_found'], 'filename');
+    this.failed = false;
   }
 
   draw_cropped_image(): void {
@@ -131,6 +137,8 @@ export class LandingComponent implements OnInit {
       // if the white king is on the top
       if(white_king_pos < this.fen.length/2) {
         this.perspective = 'b';
+        this.move = 'b';
+        this.fen = this.fen.split('').reverse().join('');
       }
       else{
         this.perspective = 'w';
@@ -138,6 +146,53 @@ export class LandingComponent implements OnInit {
 
 
     }
+
+  }
+
+  process(){
+    this.loading=true;
+    const fd = new FormData()
+    console.log(this.file);
+    console.log(this.file.name);
+    fd.append('chessboard', this.file, this.file.name);
+    this.http.post('/api/',fd).subscribe(
+      (res_json: any) => {
+        if(res_json != null){
+          this.fen = res_json['fen']
+          this.visible_fen = this.fen;
+          this.crop_data = res_json['crop'].split(' ')
+          this.fen_returned();
+          //document.getElementsByClassName('uploaded-image')[0].scrollIntoView(true);
+        }
+        else{
+          this.failed = true;
+          this.loading=false;
+        }
+      }
+    )
+
+  }
+
+  select_change(){
+    // they selected a value so we will load it
+    let reader = new FileReader();
+    if(this.example_selected == '-1'){
+      return;
+    }
+    let loadImageURL = 'assets/img/'+this.example_selected;
+
+    this.http.get(loadImageURL, {responseType: 'blob'})
+    .subscribe(data=>{
+      let blob = new Blob([data], {type:'image/png'})
+      this.file = new File([data], this.example_selected, {type:'image/png'});
+      reader.readAsDataURL(this.file);
+      reader.onload = (_event) => {
+        this.imageURL = reader.result;
+      }
+      this.filename=  this.file.name;
+      this.loading=false;
+      this.doneLoading=false;
+    })
 
   }
 
@@ -150,31 +205,20 @@ export class LandingComponent implements OnInit {
     if(files.length == 0){
       this.message="No file was uploaded"
     }
-    this.loading=true;
 
     // Load the file so the user can see it
     this.imagePath=files;
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
+      console.log(reader.result);
       this.imageURL = reader.result;
     }
 
-    let file = <File>files[0];
+    this.file = <File>files[0];
 
-    this.filename=  file.name;
+    this.filename=  this.file.name;
+    this.loading=false;
+    this.doneLoading=false;
     // then send the files to the api to get 
-    const fd = new FormData()
-    fd.append('chessboard', file, file.name);
-    this.http.post('/api/',fd).subscribe(
-      (res_json: any) => {
-        this.fen = res_json['fen']
-        this.visible_fen = this.fen;
-        this.crop_data = res_json['crop'].split(' ')
-        this.fen_returned();
-        //this.draw_cropped_image()
-      }
-    )
   }
-
-
 }

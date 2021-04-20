@@ -9,26 +9,64 @@
         -- analysze board at lichess 
         -- analysze board at chess.com
     -->
-    <div class="image-upload">
-        <div>
-            <div clas="col-lg-6 col-md-12 align-middle">
-                <div>Image</div>
+    <div class="image-upload container-fluid">
+        <div class='row'>
+            <div class="d-flex justify-content-end flex-row chessboard-select">
+                <div></div>
+                <div class="p-2 mt-auto mb-auto ">
+                    <span >Example:</span>
+                </div>
+                <div class='p-2'>
+                    <select class="upload_examples" [(ngModel)]="example_selected" (ngModelChange)="select_change()">
+                        <option value="-1">Select...</option>
+                        <option value="GothamChess.png">Gotham Chess</option>
+                        <option value="GMHikaru.png">GMHikaru</option>
+                        <option value="BenFinegold.png">Benjamin Finegold</option>
+                        <option value="ChessBrah.png">ChessBrah</option>
+                        <option value="Agadmator.png">Agadmator</option>
+                    </select>
+                </div>
             </div>
-            <div clas="col-lg-6 col-md-12">
-                <select class="upload_examples">
-                    <option value="">j</option>
-                </select>
-                <form action="/api"  method="post" enctype="multipart/form-data">
-                    <input #chessboard_input name='chessboard' class="hidden" id="input-file-id" (change)="upload(chessboard_input.files)" type="file" />
-                    <label for="input-file-id" class='upload-button'>Upload Chessboard</label>
-                    <p class='text-center chosen-file-name'>{{filename}}</p>
-                </form>
-            </div>
+        </div>
+        <div class='row text-center mb-2'>
+            <span>Or</span>
+        </div>
+        <div class='row'>
+            <form action="/api"  method="post" enctype="multipart/form-data">
+                <input #chessboard_input name='chessboard' class="hidden" id="input-file-id" (change)="upload(chessboard_input.files)" type="file" />
+                <label for="input-file-id" class='upload-button'>Upload Chessboard</label>
+                <p class='text-center chosen-file-name'>{{filename}}</p>
+            </form>
         </div>
         <div>
             {{message}}
         </div>
     </div>
+    <!--
+        On image selection
+    -->
+    <div *ngIf="this.filename!='No file chosen'" class="image_selection">
+        <div class='uploaded-image mb-2'>
+            Uploaded Image:
+        </div>
+        <div class='mb-2'>
+            <img [src]="imageURL" height="250px" *ngIf="imageURL">
+        </div>
+        <div class='p-2'>
+            <label for="process-input" (click)="process()"class='upload-button'>Process</label>
+        </div>
+    </div>
+    <!--
+        No chess boards found
+    -->
+    <div class="failed" *ngIf="failed">
+        No Chessboard found!
+        Try one of the examples
+    </div>
+    <!--
+        After image upload
+    -->
+     
     <div class="loading" *ngIf="loading">
         <img class='rotating mx-auto' src="assets/img/loadingRook.png">
     </div>
@@ -36,12 +74,6 @@
         <div  class= "result-box">
     -->
     <div  class= "result-box" *ngIf="doneLoading">
-        <div class='uploaded-image'>
-            Uploaded Image:
-        </div>
-        <div>
-            <img [src]="imageURL" height="200px" *ngIf="imageURL">
-        </div>
         <div class='row mt-2'>
             <div class='cropped-img col-lg-6 col-md-12'>
                 <div class>
@@ -84,6 +116,24 @@
                 <img class='selectImg' [src]="perspective=='w'? 'assets/img/whiteking.png' : 'assets/img/bk.png'">
             </div>
             <div class='col'>
+                <div>
+                    <label>
+                        Turn:
+                    </label>
+                </div>
+                <div>
+                    <select class="moveSelect" [(ngModel)]="move">
+                        <option value='w'>
+                        White
+                        </option>
+                        <option value='b'>
+                        Black
+                        </option>
+                    </select>
+                </div>
+                <img class='selectImg' [src]="move=='w'? 'assets/img/WhiteKingMove.png' : 'assets/img/BlackKingMove.png'">
+            </div>
+            <div class='col'>
                 <button class="interact-button" (click)="flip_board()">Flip Board</button>
                 <button class="interact-button mt-1" (click)="copyToClipboard()">Copy To Clipboard</button>
                 <textarea id='copyArea' style="opacity:0; width:0; height:0;">{{fen}} {{move}} - - 0 1</textarea>
@@ -109,7 +159,7 @@
                     </a>
                 </div>
             </div>
-            <div class="chesscom mt-2 col">
+            <div class="chesscom mt-2 mb-4 col">
                 <label>
                     <img src="assets/img/chesscom.png" class='logo'>
                 </label>
