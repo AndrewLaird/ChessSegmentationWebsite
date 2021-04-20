@@ -1,0 +1,3 @@
+[submodule "ChessTutorModels"]
+	path = api/ChessTutorModels
+	url = https://github.com/AndrewLaird/ChessTutorModels.git
