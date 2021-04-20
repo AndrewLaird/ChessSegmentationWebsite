@@ -2,7 +2,7 @@ const express = require("express");
 const compression = require("compression");
 const cors = require('cors')
 
-const _port = 4100;
+const _port = process.env.PORT || 4100;
 const _app_folder = 'dist/ChessTutor';
 
 const app = express();

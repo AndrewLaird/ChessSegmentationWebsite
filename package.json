@@ -2,13 +2,14 @@
   "name": "chess-tutor",
   "version": "0.0.0",
   "scripts": {
+    "web": "bash go.sh",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "bash go.sh",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "nodemon server.js"
+    "dev": "node server.js"
   },
   "private": true,
   "dependencies": {
