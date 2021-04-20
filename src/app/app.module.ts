@@ -9,7 +9,6 @@ import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { ChessBoardComponent } from './chess-board/chess-board.component';
-import { TfstuffComponent } from './tfstuff/tfstuff.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { TfstuffComponent } from './tfstuff/tfstuff.component';
     LandingComponent,
     HeaderComponent,
     ChessBoardComponent,
-    TfstuffComponent
   ],
   imports: [
     BrowserModule,
