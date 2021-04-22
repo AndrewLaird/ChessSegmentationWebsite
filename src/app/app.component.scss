@@ -1,5 +1,4 @@
-@import "~/src/styles.scss";
 .background{
     min-height:100%;
-    background-color:$chessGrey;
+    background-color:var(--chessGrey);
 }

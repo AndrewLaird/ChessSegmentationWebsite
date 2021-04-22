@@ -4,7 +4,7 @@
 
 .container{
     text-align:center;
-    max-width:$center-width;
+    max-width:var(--center-width);
     width:100%;
     border-left: solid 1px black;
     border-right: solid 1px black;
@@ -17,23 +17,20 @@
     display:none;
 }
 
-.chosen-file-name{
-    margin-top:.5em;
-}
 
 .upload-button{
-    font-weight:200;
+    font-weight:300;
     font-size:1em;
     border-radius: .3em;
     line-height:1em;
     padding:.5em;
-    color:$primary;
+    color:var(--primary);
     background-color:white;
-    border: 1px solid $primary;
+    border: 1px solid var(--primary);
 }
 .upload-button:hover{
     color:white;
-    background-color:$primary;
+    background-color:var(--primary);
     border: 1px solid white;
 }
 
@@ -84,6 +81,10 @@
     height:300px;
     text-align:center;
 }
+.cropped-container{
+    height: 300px;
+    width: 300px;
+}
 
 .inline{
     display:inline;
@@ -107,15 +108,15 @@
 
 // call to action buttons to leave the page
 .exit-button{
-    background-color:$chessGrey;
+    background-color:var(--chessGrey);
     padding:10px;
     border-radius:.5em;
     color:white;
 }
 .exit-button:hover{
     background-color:white;
-    color:$chessGrey;
-    border: solid 1px $chessGrey;
+    color:var(--chessGrey);
+    border: solid 1px var(--chessGrey);
 }
 
 @keyframes rotation {

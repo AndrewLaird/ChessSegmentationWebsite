@@ -9,9 +9,9 @@
         -- analysze board at lichess 
         -- analysze board at chess.com
     -->
-    <div class="image-upload container-fluid">
+    <div class="image-upload container-fluid" *ngIf="!doneLoading">
         <div class='row'>
-            <div class="d-flex justify-content-end flex-row chessboard-select">
+            <div class="d-flex mt-2 justify-content-end flex-row chessboard-select">
                 <div></div>
                 <div class="p-2 mt-auto mb-auto ">
                     <span >Example:</span>
@@ -34,8 +34,7 @@
         <div class='row'>
             <form action="/api"  method="post" enctype="multipart/form-data">
                 <input #chessboard_input name='chessboard' class="hidden" id="input-file-id" (change)="upload(chessboard_input.files)" type="file" />
-                <label for="input-file-id" class='upload-button'>Upload Chessboard</label>
-                <p class='text-center chosen-file-name'>{{filename}}</p>
+                <label for="input-file-id" class='mb-4 upload-button'>Upload Chessboard</label>
             </form>
         </div>
         <div>
@@ -46,14 +45,12 @@
         On image selection
     -->
     <div *ngIf="this.filename!='No file chosen'" class="image_selection">
-        <div class='uploaded-image mb-2'>
-            Uploaded Image:
-        </div>
+        <p class='text-center chosen-file-name'>{{filename}}</p>
         <div class='mb-2'>
             <img [src]="imageURL" height="250px" *ngIf="imageURL">
         </div>
         <div class='p-2'>
-            <label for="process-input" (click)="process()"class='upload-button'>Process</label>
+            <label *ngIf="!doneLoading" for="process-input" (click)="process()"class='upload-button'>Process</label>
         </div>
     </div>
     <!--
@@ -77,9 +74,11 @@
         <div class='row mt-2'>
             <div class='cropped-img col-lg-6 col-md-12'>
                 <div class>
-                    Detected Chessboard Location:
+                    Detected Chessboard:
                 </div>
-                <img height='300px' [src]="imageURL" (load)="draw_cropped_image()" id="croppedImage">
+                <div class="ms-auto me-auto cropped-container">
+                    <img height='300px' [src]="imageURL" (load)="draw_cropped_image()" id="croppedImage">
+                </div>
             </div>
             <div class='col-lg-6 col-md-12'>
                 <div class>
@@ -92,7 +91,7 @@
             <div>
                 Fen:
             </div>
-            <div>
+            <div style="word-break: break-all">
                 {{fen}} {{move}} - - 0 1
             </div>
         </div>
@@ -165,10 +164,10 @@
                 </label>
                 <hr class='w-100'>
                 <div class='row'>
+                    <label style='font-size:.7em'>(Requires Copy/Paste)</label>
                     <a href='https://chess.com/analysis'> 
                         <label>Analysis</label>
                     </a>
-                    <label style='font-size:.7em'>(Requires Copy/Paste)</label>
                 </div>
             </div>
         </div>

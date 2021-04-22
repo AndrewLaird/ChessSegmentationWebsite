@@ -80,9 +80,6 @@ export class LandingComponent implements OnInit {
     cropped_image!.style.clipPath = polygon_str;
     cropped_image!.style.transform = translate_str;
     cropped_image!.style.height = new_height;
-    // set the elemetn height to be the same as the board so other elements are still below it
-    //cropped_image!.style.height = boardHeight;
-    //img.src = this.imagePath;
   }
 
   reverse_fen(): void{

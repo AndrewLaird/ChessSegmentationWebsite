@@ -1,10 +1,8 @@
-@import "~/src/styles.scss";
-
 .header-color{
     font-weight:200;
     width:100%;
     // Chess.com grey
-    background-color:$chessBlack;
+    background-color:var(--chessBlack);
 }
 .header-bar{
     color:white;
@@ -17,4 +15,8 @@
 }
 .header-row{
     height:100%;
+}
+.header-link{
+    color: white;
+    text-decoration:none;
 }
