@@ -1,2 +1,2 @@
 ng build
-node server.js
+sudo node server.js &
