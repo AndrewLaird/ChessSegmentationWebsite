@@ -12,7 +12,6 @@ var upload = multer({ dest: 'api/ChessTutorModels/data/input_images' })
 
 // this is once we've already gotten to api/
 router.post('*', upload.single('chessboard'), function(req, res){
-    console.log(req.file);
     var dataToSend;
     var jsonToSend;
     //console.log(req.file)
@@ -30,7 +29,6 @@ router.post('*', upload.single('chessboard'), function(req, res){
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
         // delete all files in the folder
         let folder= './api/ChessTutorModels/data/input_images'
         fs.readdir(folder, (err, files)=>{
@@ -42,7 +40,6 @@ router.post('*', upload.single('chessboard'), function(req, res){
                 }
         })
         // send data to browser
-        console.log(jsonToSend);
         res.json(jsonToSend)
     });
 

@@ -35,6 +35,8 @@ export class LandingComponent implements OnInit {
     this.example_selected = "-1";
     this.file = new File(['not_found'], 'filename');
     this.failed = false;
+    
+    
   }
 
   draw_cropped_image(): void {
@@ -104,7 +106,8 @@ export class LandingComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    // make the page scroll to the top on page refresh
+    window.scroll(0,0);
   }
 
 
@@ -217,5 +220,23 @@ export class LandingComponent implements OnInit {
     this.loading=false;
     this.doneLoading=false;
     // then send the files to the api to get 
+  }
+  
+  // reset to page load
+  restart(){
+    this.message='';
+    this.fen = '';
+    this.visible_fen = '';
+    this.loading=false;
+    this.doneLoading=false;
+    this.perspective= 'w';
+    this.move= 'w';
+    this.crop_data = "";
+    this.filename = "No file chosen";
+    this.example_selected = "-1";
+    this.file = new File(['not_found'], 'filename');
+    this.failed = false;
+    window.scroll(0,0);
+
   }
 }

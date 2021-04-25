@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { ChessBoardComponent } from './chess-board/chess-board.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ChessBoardComponent } from './chess-board/chess-board.component';
     LandingComponent,
     HeaderComponent,
     ChessBoardComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
