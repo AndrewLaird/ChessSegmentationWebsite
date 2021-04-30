@@ -1,3 +1,75 @@
 <div class='container'> 
-    Hello world
+    <h2 class="pt-2">
+        The Algorithm
+    </h2>
+    <hr>
+    <div class='indent'>
+        <p>
+            Chess Detector uses the Yolo alogorithm (<a href="https://arxiv.org/abs/1506.02640">paper</a>). We acomplish our task in two parts. First we find where the chessboard is in the image. Then we crop out the chess pieces and detect the location of each piece.
+        </p>
+        <h6>
+            Chessboard detection training
+        </h6>
+        <div class='centered-img-container'>
+            <img class='centered-img' src="assets/img/boards_training.jpg">
+        </div>
+
+        <h6>
+            Piece detection training
+        </h6>
+        <div class='centered-img-container'>
+            <img  class="centered-img" src="assets/img/pieces_training.jpg">
+        </div>
+        <br>
+        <h5>
+            Models to compare to
+        </h5>
+        <hr>
+        <p><b>ChessFenBot</b>(<a href="https://www.reddit.com/user/ChessFenBot">link</a>) by Sam Ansari (<a href="https://github.com/Elucidation/tensorflow_chessbot">github</a>)</p>
+        <p>ChessFenBot was put into motion in 2016 and it a 256x256 CNN that expects the board to be the only item in the image. This bot is obviously super helpful in 90% of the cases that are posted online, someone has made puzzle or found a good position and they post a screenshot of the position.</p>
+        <p>But it is not robust enough to handle chess boards that are far outside it's training data such as the one below.</p>
+        <div class='centered-img-container'>
+            <img  class="centered-img" src="assets/img/ChessFenBotProb.png">
+        </div>
+
+        <br>
+        <p><b>ChessVission.ai</b>(<a href="https://chessvision.ai/">link</a>) by reddit user Pkacprzak(<a href="https://github.com/chessvision-ai">github</a>)</p>
+        <p>I have to give props to this implementation. Not only does it include segmentation of the chessboard, it is chocked full of features: A chrome extension, eReader extension, reddit and discord bots. And finally the most interesting use of this ai, scanning youtube videos for positions to aid learners. This is a really great way of denosiging the large amount of chess youtube and making it searchable in a really powerful way.</p>
+        <p>
+            I discovered this site well into developing my own and I can only say that they implemented what I wanted to and more.
+        </p>
+        <div class='centered-img-container'>
+            <img  class="centered-img" src="assets/img/ChessVision.png">
+        </div>
+        <br>
+        <h5>
+            Improvements
+        </h5>
+        <hr>
+        <h6>Skewed chessboard</h6>
+        <p>
+            Because our initial goal was to process youtube videos, we do not have a way to handle squeue in images. In this queens gambit image you can see that the chessboard could be readable if you could recognize it’s four corners are not square.
+        </p>
+        <div class='centered-img-container'>
+            <img  class="centered-img" src="assets/img/QueenSqueue.png">
+        </div>
+        
+        <br>
+
+        <h6>Include more chesspieces</h6>
+        <p>
+            There are alot of weird chess pieces out there. In this queens gambit image, you can see that the chessboard was successfully pulled out, but the pieces don’t look like anything the training data. I would love to add more chess pieces into my dataset, including the 3d chess pieces which I left out initaily to simplify the problem.
+        </p>
+        <div class='centered-img-container'>
+            <img  class="centered-img" src="assets/img/QueensGambitProb.png">
+        </div>
+
+        <br>
+        <br>
+        <h6>
+            Created By Andrew Laird (<a href="http://lairdandrew.com">website</a>)
+        </h6>
+        <div class="pt-5">
+        </div>
+    </div>
 </div>
