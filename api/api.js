@@ -12,6 +12,7 @@ var upload = multer({ dest: 'api/ChessTutorModels/data/input_images' })
 
 // this is once we've already gotten to api/
 router.post('*', upload.single('chessboard'), function(req, res){
+    console.log('recieved');
     var dataToSend;
     var jsonToSend;
     //console.log(req.file)
@@ -20,6 +21,7 @@ router.post('*', upload.single('chessboard'), function(req, res){
 
     python.stdout.on('data', function (data) {
         dataToSend = data.toString();
+	console.log(dataToSend);
         let lines = dataToSend.split('\n')
         jsonToSend = {
             'code': lines[0],
