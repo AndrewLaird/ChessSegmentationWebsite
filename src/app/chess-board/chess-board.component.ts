@@ -12,6 +12,9 @@ export class ChessBoardComponent implements OnInit {
   @ViewChild('chessboard', {static: false}) chessboard?: ElementRef<HTMLCanvasElement>;
   @Input() fen: string;
   public pieces_map: any;
+  public num_loaded: any;
+  public loaded_chess_pieces: any;
+  public num_to_piece: any;
   public pieces: Array<string>;
   public ctx?: CanvasRenderingContext2D | null;
   public piece_width: number;
@@ -19,9 +22,9 @@ export class ChessBoardComponent implements OnInit {
   public resolution: number;
 
   constructor() {
-    this.fen = "r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R";
+    this.fen = "";
     let location = 'assets/img/'
-    this.pieces_map = {
+    const pieces_map: Record<string, string>= {
       'p': location+'bp.png',
       'r': location+'br.png',
       'n': location+'bn.png',
@@ -34,11 +37,41 @@ export class ChessBoardComponent implements OnInit {
       'B': location+'wb.png',
       'Q': location+'wq.png',
       'K': location+'wk.png',
+      'background': location+'chessboard.png'
+    };
+    this.num_to_piece = {
+      0:'p',
+      1:'r',
+      2:'n',
+      3:'b',
+      4:'q',
+      5:'k',
+      6:'P',
+      7:'R',
+      8:'N',
+      9:'B',
+      10:'Q',
+      11:'K',
     }
+    const _this = this;
+    _this.num_loaded = 0;
+    _this.loaded_chess_pieces ={};
+    Object.keys(pieces_map).map((piece_name: string)=>{
+      const piece_location = pieces_map[piece_name];
+      let img = new Image();
+      img.onload = function(){
+        _this.loaded_chess_pieces[piece_name] = (this as HTMLImageElement);
+        _this.num_loaded += 1;
+        if(_this.fen != "" && _this.num_loaded == 13){
+          _this.fen_to_board(_this.chessboard as ElementRef<HTMLCanvasElement>);
+        }
+      }
+      img.src = piece_location 
+    });
     this.resolution = 1600
     this.piece_width = this.resolution/8;
     this.piece_height = this.resolution/8;
-    this.pieces = Object.keys(this.pieces_map);
+    this.pieces = Object.keys(pieces_map);
   }
 
   ngOnInit(): void {
@@ -72,34 +105,23 @@ export class ChessBoardComponent implements OnInit {
     }
   }
 
-  draw_image(img: any,row: number,col: number, _ctx: CanvasRenderingContext2D){
+
+  draw_image(image: any,row: number,col: number, _ctx: CanvasRenderingContext2D){
     let _this = this;
-    img.onload = function(){
-      let result = _ctx.drawImage(img,
-                    col * _this.piece_width,
-                    row * _this.piece_height,
-                    _this.piece_width,
-                    _this.piece_height)
-    }
+    _ctx.drawImage(image,
+      col * _this.piece_width,
+      row * _this.piece_height,
+      _this.piece_width,
+      _this.piece_height,
+    );
   }
 
-  fen_to_board(chessboard: ElementRef<HTMLCanvasElement>): any{
+  iterate_over_fen_to_draw(){
     if(!this.ctx){
       return;
     }
-    let _ctx = this.ctx
-    let _this =this;
-    // draw one big image over the whole canvas
-    let background_image = new Image();
-    background_image.src ='assets/img/chessboard.png' ;
-    background_image.onload = function(){
-      _ctx.drawImage( background_image,
-                        0, 0,
-                        chessboard.nativeElement.height,
-                        chessboard.nativeElement.height)
-    }
-    let chessboard_length = [...Array(8).keys()]
-    let board = chessboard_length.map((x)=>[chessboard_length.map((x)=>0)]);
+    const _ctx = this.ctx;
+    const _this = this;
     this.fen.split('/').forEach(function(line, row){
       let line_items = line.split("");
       let col=0
@@ -107,12 +129,9 @@ export class ChessBoardComponent implements OnInit {
         if(_this.pieces.includes(item)){
           // this is a piece
           // make a div right here
-          let img_src = _this.pieces_map[item]
-          let img = new Image();
-          img.src = img_src
+          let img = _this.loaded_chess_pieces[item]
           _this.draw_image(img,row,col,_ctx)
           col += 1;
-          //_this.ctx.drawImage()
         }
         else{
           //convert to Number
@@ -122,6 +141,24 @@ export class ChessBoardComponent implements OnInit {
       })
 
     });
+  }
+
+  fen_to_board(chessboard: ElementRef<HTMLCanvasElement>): any{
+    if(!this.ctx){
+      return;
+    }
+    let _ctx = this.ctx
+    let _this =this;
+    // draw one big image over the whole canvas
+    let background_image = _this.loaded_chess_pieces['background']
+    _ctx.drawImage( background_image,
+                      0, 0,
+                      chessboard.nativeElement.height,
+                      chessboard.nativeElement.height)
+
+    if(this.num_loaded == 13){
+      this.iterate_over_fen_to_draw();
+    }
   }
 
 }
