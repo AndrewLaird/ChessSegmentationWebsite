@@ -35,11 +35,10 @@ router.post('*', upload.single('chessboard'), function(req, res){
     const file = req.file;
     const file_folder = path.dirname(file.path);
     const file_number = files_uploaded
-    const python = spawn('python3', ['./api/ChessTutorModels/get_fen_from_image.py', path.dirname(file.path), files_uploaded])
+    const python = spawn('python3', ['./api/ChessTutorModels/get_fen_from_image.py', path.dirname(file.path), file_number])
 
     python.stdout.on('data', function (data) {
         dataToSend = data.toString();
-        console.log(dataToSend);
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
