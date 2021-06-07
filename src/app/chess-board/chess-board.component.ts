@@ -149,14 +149,14 @@ export class ChessBoardComponent implements OnInit {
     }
     let _ctx = this.ctx
     let _this =this;
-    // draw one big image over the whole canvas
-    let background_image = _this.loaded_chess_pieces['background']
-    _ctx.drawImage( background_image,
-                      0, 0,
-                      chessboard.nativeElement.height,
-                      chessboard.nativeElement.height)
 
     if(this.num_loaded == 13){
+      // draw one big image over the whole canvas
+      let background_image = _this.loaded_chess_pieces['background']
+      _ctx.drawImage( background_image,
+                     0, 0,
+                     chessboard.nativeElement.height,
+                     chessboard.nativeElement.height)
       this.iterate_over_fen_to_draw();
     }
   }

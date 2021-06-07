@@ -30,15 +30,18 @@ var upload = multer({
 
 // this is once we've already gotten to api/
 router.post('*', upload.single('chessboard'), function(req, res){
-    var dataToSend;
-    var jsonToSend;
+    let dataToSend;
+    let jsonToSend;
+    let error = "";
     const file = req.file;
     const file_folder = path.dirname(file.path);
     const file_number = files_uploaded
     const python = spawn('python3', ['./api/ChessTutorModels/get_fen_from_image.py', path.dirname(file.path), file_number])
 
     python.stdout.on('data', function (data) {
-        dataToSend = data.toString();
+        // No news is good news
+        error = data.toString();
+        console.log(error)
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
@@ -52,10 +55,23 @@ router.post('*', upload.single('chessboard'), function(req, res){
         fs.rm('api/ChessTutorModels/data/cropped/'+file_number, {recursive:true, force:true}, err => {
             if (err) console.log(err);
         });
+        // if an error has occured, just send the error
+        if(error != ""){
+            jsonToSend = {
+                'code': '1'
+            }
+            res.json(jsonToSend)
+            return
+        }
+
+
         // get the data from the file
         fs.readFile('api/ChessTutorModels/data/output_files/'+file_number+".txt", (err, data)=>{
             if(err){
-                console.log(err)
+                jsonToSend = {
+                    'code': '1'
+                }
+                res.json(jsonToSend)
                 return
             }
             const file_string = new Buffer.from(data).toString();

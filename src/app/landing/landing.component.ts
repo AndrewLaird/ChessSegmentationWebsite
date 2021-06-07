@@ -152,21 +152,19 @@ export class LandingComponent implements OnInit {
   process(){
     this.loading=true;
     const fd = new FormData()
-    console.log(this.file);
-    console.log(this.file.name);
     fd.append('chessboard', this.file, this.file.name);
     this.http.post('/api/',fd).subscribe(
       (res_json: any) => {
-        if(res_json != null){
+        if(res_json != null && res_json['code'] == 0){
           this.fen = res_json['fen']
           this.visible_fen = this.fen;
           this.crop_data = res_json['crop'].split(' ')
           this.fen_returned();
-          //document.getElementsByClassName('uploaded-image')[0].scrollIntoView(true);
+          this.failed = false;
         }
         else{
           this.failed = true;
-          this.loading=false;
+          this.loading = false;
         }
       }
     )
@@ -210,7 +208,6 @@ export class LandingComponent implements OnInit {
     this.imagePath=files;
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
-      console.log(reader.result);
       this.imageURL = reader.result;
     }
 
