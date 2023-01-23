@@ -4,7 +4,7 @@
   "scripts": {
     "web": "bash go.sh",
     "ng": "ng",
-    "start": "bash go.sh",
+    "start": "ng build; node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
