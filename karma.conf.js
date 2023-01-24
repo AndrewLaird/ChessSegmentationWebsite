@@ -24,7 +24,7 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
-    coverageReporter: {
+    CoverageReporter: {
       dir: require('path').join(__dirname, './coverage/ChessTutor'),
       subdir: '.',
       reporters: [
