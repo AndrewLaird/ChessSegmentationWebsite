@@ -33,6 +33,8 @@ router.post('*', upload.single('chessboard'), function(req, res){
     let dataToSend;
     let jsonToSend;
     let error = "";
+
+    console.log("Processing " + req.file);
     const file = req.file;
     const file_folder = path.dirname(file.path);
     const file_number = files_uploaded
