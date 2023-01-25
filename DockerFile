@@ -1,10 +1,34 @@
-#stage 1
+# stage 1
+# install node and dependencies
 FROM node:latest as node
 WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run build --prod
 RUN npm install -g @angular/cli
-#stage 2
-#FROM nginx:alpine
-#COPY --from=node /app/dist/demo-app /usr/share/nginx/html
+
+# stage 2 
+# install python and dependencies
+# Update apt packages
+RUN apt update
+RUN apt upgrade -y
+
+# Install submodule
+RUN git submodule update --init --recursive
+
+# Install vim
+RUN apt install vim -y
+
+# Install python 3
+RUN apt install software-properties-common -y
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt install python3 -y
+
+# Install pip
+RUN apt install python3-pip -y
+RUN python3 -m pip install --upgrade pip
+
+# Install requirements
+RUN pip3 install -r requirements.txt
+
+CMD ["npm", "start"]
