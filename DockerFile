@@ -31,4 +31,7 @@ RUN python3 -m pip install --upgrade pip
 # Install requirements
 RUN pip3 install -r requirements.txt
 
+#alas python3 as python
+RUN alias python=python3
+
 CMD ["npm", "start"]
