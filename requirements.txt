@@ -11,6 +11,7 @@ matplotlib
 numpy
 pandas
 Pillow==8.2.0
+opencv-python==4.7.0.68
 pyparsing==2.4.7
 python-dateutil==2.8.1
 pytz==2021.1
@@ -25,7 +26,9 @@ six==1.15.0
 sklearn==0.0
 threadpoolctl==2.1.0
 tifffile
---find-links https://download.pytorch.org/whl/torch_stable.html
+torch==1.13.1
+torchaudio==0.13.1
+torchvision==0.14.1
 tqdm==4.60.0
 typing-extensions==3.7.4.3
 urllib3==1.26.4

@@ -43,10 +43,18 @@ router.post('*', upload.single('chessboard'), function(req, res){
     python.stdout.on('data', function (data) {
         // No news is good news
         error = data.toString();
-        console.log(error)
+        console.log("stdout: " + error)
+    });
+
+    python.stderr.on('data', function (data) {
+        // No news is good news
+        error = data.toString();
+        console.log("stderror: " + error)
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
+        console.log("Hi")
+        console.log("Python process closed with code " + code.toString());
         // open up the file attached to this
 
         // delete all files in the folder

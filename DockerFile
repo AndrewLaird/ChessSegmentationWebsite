@@ -20,6 +20,7 @@ RUN git submodule update --init --recursive
 RUN apt install vim -y
 
 # Install python 3
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN apt install software-properties-common -y
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt install python3 -y
