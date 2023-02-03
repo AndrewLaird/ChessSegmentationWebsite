@@ -62,21 +62,13 @@ router.post('*', upload.single('chessboard'), function(req, res){
         fs.rm('api/ChessTutorModels/data/cropped/'+file_number, {recursive:true, force:true}, err => {
             if (err) console.log(err);
         });
-        // if an error has occured, just send the error
-        if(error != ""){
-            jsonToSend = {
-                'code': '1'
-            }
-            res.json(jsonToSend)
-            return
-        }
-
 
         // get the data from the file
         fs.readFile('api/ChessTutorModels/data/output_files/'+file_number+".txt", (err, data)=>{
             if(err){
                 jsonToSend = {
-                    'code': '1'
+                    'code': '1',
+                    'error':err
                 }
                 res.json(jsonToSend)
                 return
