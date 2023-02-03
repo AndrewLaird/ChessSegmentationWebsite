@@ -26,9 +26,10 @@ six==1.15.0
 sklearn==0.0
 threadpoolctl==2.1.0
 tifffile
-torch==1.13.1
-torchaudio==0.13.1
-torchvision==0.14.1
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==1.9.0
+torchvision==0.10.0
+torchaudio==0.9.0 
 tqdm==4.60.0
 typing-extensions==3.7.4.3
 urllib3==1.26.4
