@@ -34,7 +34,6 @@ router.post('*', upload.single('chessboard'), function(req, res){
     let jsonToSend;
     let error = "";
 
-    console.log("Processing " + req.file);
     const file = req.file;
     const file_folder = path.dirname(file.path);
     const file_number = files_uploaded
@@ -53,8 +52,6 @@ router.post('*', upload.single('chessboard'), function(req, res){
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
-        console.log("Hi")
-        console.log("Python process closed with code " + code.toString());
         // open up the file attached to this
 
         // delete all files in the folder
