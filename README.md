@@ -29,8 +29,23 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Following this guide for hosting docker container on ec2
 https://medium.com/appgambit/part-1-running-docker-on-aws-ec2-cbcf0ec7c3f8
 
+# build docker image locally
+docker build -t lairdandrew/chess_backend ./
+docker push lairdandrew/chess_backend
+
+## ssh into ec2 instance
+
 # install docker on the ec2
 sudo yum update -y
 sudo amazon-linux-extras install docker
 sudo service docker start
 sudo usermod -a -G docker ec2-user
+
+# pull docker image from docker hub
+sudo docker login
+sudo docker pull lairdandrew/chess_backend
+
+# run the docker image
+docker run -p 80:4100 lairdandrew/chess_backend
+
+# or use docker-compose
