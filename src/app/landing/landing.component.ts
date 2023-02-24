@@ -119,9 +119,16 @@ export class LandingComponent implements OnInit {
     /* Select the text field */
     copyText.select();
     copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    const text = copyText.value
 
     /* Copy the text inside the text field */
-    document.execCommand("copy");
+    navigator.clipboard.writeText(text)
+    .then(() => {
+      console.log("Text copied to clipboard");
+    })
+    .catch((err) => {
+      console.error("Failed to copy text: ", err);
+    });
 
   }
 
