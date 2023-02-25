@@ -119,17 +119,21 @@ export class LandingComponent implements OnInit {
     /* Select the text field */
     copyText.select();
     copyText.setSelectionRange(0, 99999); /* For mobile devices */
-    const text = copyText.value
 
-    /* Copy the text inside the text field */
-    navigator.clipboard.writeText(text)
-    .then(() => {
-      console.log("Text copied to clipboard");
-    })
-    .catch((err) => {
-      console.error("Failed to copy text: ", err);
-    });
+    if (window.isSecureContext && navigator.clipboard) {
+      const text = copyText.value
+      /* Copy the text inside the text field */
+      navigator.clipboard.writeText(text)
+      .then(() => {
+        console.log("Text copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
 
+    } else {
+      document.execCommand("copy");
+    }
   }
 
   fen_returned(): void{
